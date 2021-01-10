@@ -17,8 +17,8 @@ class dotsandboxes():
     REWARD_WIN = 200
     PUNISHMENT_TIE = -200
     PUNISHMENT_LOSS = -400
-    REWARD_BLOCK = 5
-    PUNISHMENT_BLOCK = -6
+    REWARD_BLOCK = 20
+    PUNISHMENT_BLOCK = -20
 
     def __init__(self, botfolder=None):
         self.bot = 0
@@ -67,7 +67,7 @@ class dotsandboxes():
 
         if not gotpoint:
             gotpoint = True
-            while gotpoint and not isdone:
+            while gotpoint:
                 gotpoint = False
                 botobservation = self.observation()
                 action = self.bot.choose_action(botobservation)

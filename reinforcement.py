@@ -99,6 +99,7 @@ class Agent(object):
             _, advantage = self.q_eval.forward(state)
             action = T.argmax(advantage).item()
         else:
+
             action = np.random.choice(self.action_space)
 
         return action

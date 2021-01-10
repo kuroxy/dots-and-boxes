@@ -11,7 +11,7 @@ class window():
 
     def drawscreen(self):
         #clear terminal then draw screen
-        os.system(self.clear)
+        #os.system(self.clear)
 
         for i in range(self.winsize[1]):
             print("".join(self.buffer[i]))
@@ -43,8 +43,8 @@ class Environment:
     SIZEX = 5
     SIZEY = 5
 
-    ENVIRONMENT_SHAPE = ((Environment.SIZEX+1)*Environment.SIZEY+(Environment.SIZEY+1)*Environment.SIZEX + 2,1,1)
-    ACTION_SPACE = [i for i in range((Environment.SIZEX+1)*Environment.SIZEY+(Environment.SIZEY+1)*Environment.SIZEX)]
+    ENVIRONMENT_SHAPE = ((SIZEX+1)*SIZEY+(SIZEY+1)*SIZEX + 2,1,1)
+    ACTION_SPACE = [i for i in range((SIZEX+1)*SIZEY+(SIZEY+1)*SIZEX)]
     ACTION_SPACE_SIZE = len(ACTION_SPACE)
 
     REWARD_WIN = 100
@@ -72,19 +72,19 @@ class Environment:
         x,y,side = 0,0,0
         index = action
 
-        if index >= (thegame.SIZEX+1)*thegame.SIZEY:
-            index -=  (thegame.SIZEX+1)*thegame.SIZEY
-            x = index % (thegame.SIZEX )
-            y = int(index / (thegame.SIZEX))
+        if index >= (Environment.SIZEX+1)*Environment.SIZEY:
+            index -=  (Environment.SIZEX+1)*Environment.SIZEY
+            x = index % (Environment.SIZEX )
+            y = int(index / (Environment.SIZEX))
 
             side = 1
         else:
-            x = index % (thegame.SIZEX+1)
-            y = int(index / (thegame.SIZEX+1))
+            x = index % (Environment.SIZEX+1)
+            y = int(index / (Environment.SIZEX+1))
             side = 0
 
         if side:
-            extra = thegame.setyline(x,y)
+            extra = Environment.setyline(x,y)
             if extra == "LOSE":
                 reward =+ Environment.PUNISHMENT_LOSS
             else:
@@ -98,7 +98,7 @@ class Environment:
                 if extra[1]:
                     score[player] +=1
         else:
-            extra = thegame.setxline(x,y)
+            extra = Environment.setxline(x,y)
             if extra == "LOSE":
                 reward =+ Environment.PUNISHMENT_LOSS
             else:
@@ -115,7 +115,7 @@ class Environment:
                     score[player] +=1
 
 
-        if score[0]+score[1] == thegame.SIZEX*thegame.sizey:
+        if score[0]+score[1] == Environment.SIZEX*Environment.sizey:
             if score[0] > score[1]:
                 print(f"Player 0 won {score[0]} {score[1]}")
 
@@ -140,7 +140,7 @@ class Environment:
 
     def checkboxes(self,x,y):
         try:
-            return self.linesX[x][y] and self.linesX[x + 1][y] and self.linesY[x][y] and self.linesY[x][y + 1]
+            return Environment.linesX[x][y] and Environment.linesX[x + 1][y] and Environment.linesY[x][y] and Environment.linesY[x][y + 1]
         except:
             return False
 
@@ -200,7 +200,7 @@ class Environment:
 
 gamesize = [5,5]
 screen = window((gamesize[0]*2+1,gamesize[1]*2+1))
-thegame = game(gamesize)
+thegame = Environment()
 player = 0
 score = [0,0]
 
